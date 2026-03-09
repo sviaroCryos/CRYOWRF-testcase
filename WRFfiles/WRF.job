@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+
+NP=2                    # number of MPI processes (CPUs)
+AVAILABLE_CORES=$(nproc)
+
+if [ "$NP" -gt "$AVAILABLE_CORES" ]; then
+    echo "ERROR! max cores available: $AVAILABLE_CORES."
+    exit 1
+fi
+
+# remove files if they exist (-f)
+rm -f WRF.log rsl*
+
+echo "Starting  wrf.exe  with $NP CPUs..."
+
+#unlimited stack size
+ulimit -s unlimited
+
+# generates core files for debugging with gdb
+ulimit -c unlimited
+
+export OMP_NUM_THREADS=1
+
+# RUN SIMULATION
+start=$(date +%s)
+mpirun -np $NP ./wrf.exe > WRF.log 2>&1 &
+
+#get the PID associated to the job.
+# to force termination:
+#   $ kill -9 <PID>
+PID=$!
+echo "  wrf.exe started with PID $PID"
+wait $PID
+EXIT_CODE=$?
+if [ $EXIT_CODE -ne 0 ]; then
+    echo "ERROR: wrf.exe failed with exit code $EXIT_CODE"
+    exit $EXIT_CODE
+fi
+
+end=$(date +%s)
+runtime=$((end - start))
+echo "WRF runtime: $runtime seconds"

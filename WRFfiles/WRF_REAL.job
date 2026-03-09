@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+
+echo "Starting real.exe..."
+
+mpirun -np 1 ./real.exe > WRF_REAL.log 2>&1 &
+
+#get the PID associated to the job.
+# to force termination:
+#   $ kill -9 <PID>
+PID=$!
+echo "   real.exe started with PID $PID"
+wait $PID
+EXIT_CODE=$?
+if [ $EXIT_CODE -ne 0 ]; then
+    echo "ERROR: real.exe failed with exit code $EXIT_CODE"
+    exit $EXIT_CODE
+fi
+
+echo "End of WRF_REAL.job!"
