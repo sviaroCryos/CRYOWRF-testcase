@@ -118,7 +118,7 @@ pltWS.scatter(df['reference_timestamp'], df['fkl010z0'],
             facecolors='none', 
             edgecolors='gray')
 pltWS.plot(meteos[1].times, meteos[1].WS10,
-           color='black', linestyle='-', marker='',label='CTRL')
+           color='black', linestyle='-', marker='',label='sim1')
 
 pltWS.set_ylabel(r'WS10m [$\mathregular{m s^{-1}}$]')
 #pltWS.legend()
@@ -172,7 +172,7 @@ pltT2m.legend(ncol=3)
 
 # --- Set x-axis limits for all subplots ---
 x_start = datetime.strptime('26/01/14_00:00', '%d/%m/%y_%H:%M')
-x_end   = datetime.strptime('28/01/14_00:00', '%d/%m/%y_%H:%M')
+x_end   = datetime.strptime('26/01/14_06:00', '%d/%m/%y_%H:%M')
 pltT2m.set_xlim([x_start, x_end]) 
 
 # Adjust layout so labels/titles don't overlap

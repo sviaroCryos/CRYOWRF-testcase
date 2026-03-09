@@ -575,7 +575,7 @@ if __name__ == "__main__":
 
     # --------- Variables to fix  ----------------------------
     #
-    simX = 'sim14'     #name of the simulation
+    simX = 'sim1'     #name of the simulation
     merge = True      #merge files?
     bs = True        #add blowing snow? (CRYOWRF only)
     #
@@ -584,14 +584,14 @@ if __name__ == "__main__":
     
     if merge == True:
         ### = = = merge outhist files = = = ###
-        files = sorted(glob.glob(f"../{simX}/results/outhist/outhist_d03_*.nc"))
+        files = sorted(glob.glob(f"./{simX}/outhist/outhist_d02_*.nc"))
 
         ds = xr.open_mfdataset(files, combine='nested', concat_dim="Time")
-        ds.to_netcdf(f"../{simX}/results/outhist/merged_d03.nc")
+        ds.to_netcdf(f"./{simX}/outhist/merged_d02.nc")
 
-        wrf_file = f'../{simX}/results/outhist/merged_d03.nc' 
+        wrf_file = f'./{simX}/outhist/merged_d02.nc' 
     else:
-        wrf_file = f'../{simX}/results/outhist/outhist_d03_2014-01-25_06:00:00.nc'  
+        wrf_file = f'./{simX}/outhist/outhist_d02_2014-01-25_06:00:00.nc'  
 
 
         
