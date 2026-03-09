@@ -1,0 +1,8 @@
+# optimization on number of cpus to use
+
+cpu  |  time [s]
+----------------
+ 2      1314
+ 4      1068
+ 6      954
+ 8      too many
