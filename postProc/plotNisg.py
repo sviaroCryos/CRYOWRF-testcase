@@ -73,7 +73,7 @@ for X in range(1,numSim+1,1):
     parts[X] = PartData([],[],[],[])  #array of PartData
     part=parts[X]
 
-    file_path = Path(f"./NisgTS_sim{X}.txt")
+    file_path = Path(f"./plot/NisgTS_sim{X}.txt")
 
     if file_path.is_file():
         print(f"File *_sim{X} exists")

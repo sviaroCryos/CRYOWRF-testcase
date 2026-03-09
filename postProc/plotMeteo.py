@@ -47,12 +47,12 @@ df = df.sort_values(by='reference_timestamp')
 ###
 #| --- Load timeseries files for comparison with outhist
 ###
-plotTimeseries=False
+plotTimeseries=True
 if plotTimeseries == True:
-    data = np.loadtxt("../sim6/results/timeseries/restart/jfj.d03.TS_orig", skiprows=1)
+    data = np.loadtxt("./plot/jfj.d02.TS_sim1", skiprows=1)
 
     # start time
-    t0 = datetime(2014, 1, 25, 0, 0, 0)
+    t0 = datetime(2014, 1, 26, 0, 0, 0)
     
     # Extract columns (Python is 0-based!)
     time_h = data[:, 1]   # column 2
@@ -78,7 +78,7 @@ for X in range(1,numSim+1,1):
     meteos[X] = MeteoData([], [], [], [], [])  #array of MeteoData
     meteo=meteos[X]
 
-    file_path = Path(f"./meteoTS_sim{X}.txt")
+    file_path = Path(f"./plot/meteoTS_sim{X}.txt")
 
     if file_path.is_file():
         print(f"File *_sim{X} exists")
@@ -161,8 +161,10 @@ pltT2m.scatter(df['reference_timestamp'], df['tre200s0'],
             edgecolors='gray')
 pltT2m.plot(meteos[1].times, meteos[1].T2,
             color='black', linestyle='-', marker='',
-            label='CTRL')
-
+            label='sim1')
+pltT2m.plot(time_dt, y,
+            color='red', linestyle=':', marker='',
+            label='TS_sim1')
 #pltT2m.plot(time_dt, y, linestyle='--',
 #             color='green',label='sim6_TS') #timeseries data
 pltT2m.set_ylabel('T2m [°C]')
