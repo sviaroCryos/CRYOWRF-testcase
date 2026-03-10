@@ -1,3 +1,4 @@
 # Ignore simulation outputs and large data
 postProc/sim1/
+postProc/sim2/
 postProc/observations/

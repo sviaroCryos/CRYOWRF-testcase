@@ -6,3 +6,5 @@ Results from the atmospheric weather station are also present here for compariso
 
 One domain takes less than three minutes to run, and two domains take less than 15 minutes with 6 cpus.
 
+The file module_sf_snowpackslm.F is added in WRFfiles as it needs to be replaced with the original.
+In this file it was removed the option ISLTYP(I,J) .ne. 14 as it generated errors for this domain.
