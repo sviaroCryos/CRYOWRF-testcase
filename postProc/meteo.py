@@ -294,7 +294,7 @@ def printTS(wrf_file_path, T2, WS10, WD10, RH):
    
     
     # Save to file with formatted datetime
-    with open(f"meteoTS_{simX}.txt", "w") as f:
+    with open(f"./plot/meteoTS_{simX}.txt", "w") as f:
         f.write("DateTime\tT2\tWS10\tWD10\tRH\n")
         for i in range(len(times)):
             #time
@@ -334,7 +334,7 @@ if __name__ == "__main__":
 
     # --------- Variables to fix  ----------------------------
     #
-    simX = 'sim1'     #name of the simulation
+    simX = 'sim2'     #name of the simulation
     merge = True      #merge files?
     #
     #--------------------------------------------------------
@@ -349,7 +349,7 @@ if __name__ == "__main__":
 
         wrf_file = f'./{simX}/outhist/merged_d02.nc' 
     else:
-        wrf_file = f'./{simX}/outhist/outhist_d02_2014-01-25_06:00:00.nc'  
+        wrf_file = f'./{simX}/outhist/outhist_d03_2014-01-26_00:00:00.nc'  
 
         
     # compute the number of timesteps

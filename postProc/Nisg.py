@@ -396,7 +396,7 @@ def printTSfrom2D(wrf_file_path, Nisg, IWC, LWC, simX):
 
 
     # Save to file with formatted datetime
-    with open(f"NisgTS_{simX}.txt", "w") as f:
+    with open(f"./plot/NisgTS_{simX}.txt", "w") as f:
         #write first line to file
         f.write(
             f"{'DateTime':<16}"
@@ -424,7 +424,7 @@ def printTSfrom2D(wrf_file_path, Nisg, IWC, LWC, simX):
 """
 Print 2d timeseries from a 2d array (time,bottom_top)
 """
-def print2dTSfrom2D(wrf_file_path, Nisg, IWC, LWC, Qv, latIn, lonIn, simX):
+def print2dTSfrom2D(wrf_file_path, Nisg, IWC, LWC, latIn, lonIn, simX):
 
     ncfile = Dataset(wrf_file_path)
     times_var = getvar(ncfile, "times", timeidx=ALL_TIMES)
@@ -444,7 +444,7 @@ def print2dTSfrom2D(wrf_file_path, Nisg, IWC, LWC, Qv, latIn, lonIn, simX):
 
     
     # Open file
-    with open(f"Nisg2dTS_{simX}.txt", "w") as f:
+    with open(f"./plot/Nisg2dTS_{simX}.txt", "w") as f:
         # Header
         f.write(f"{'DateTime':<16}")
         for i_z in range(n_z):
@@ -468,7 +468,7 @@ def print2dTSfrom2D(wrf_file_path, Nisg, IWC, LWC, Qv, latIn, lonIn, simX):
 
 
     # Open file
-    with open(f"IWC2dTS_{simX}.txt", "w") as f:
+    with open(f"./plot/IWC2dTS_{simX}.txt", "w") as f:
         # Header
         f.write(f"{'DateTime':<16}")
         for i_z in range(n_z):
@@ -492,7 +492,7 @@ def print2dTSfrom2D(wrf_file_path, Nisg, IWC, LWC, Qv, latIn, lonIn, simX):
 
 
     # Open file
-    with open(f"LWC2dTS_{simX}.txt", "w") as f:
+    with open(f"./plot/LWC2dTS_{simX}.txt", "w") as f:
         # Header
         f.write(f"{'DateTime':<16}")
         for i_z in range(n_z):
@@ -512,31 +512,6 @@ def print2dTSfrom2D(wrf_file_path, Nisg, IWC, LWC, Qv, latIn, lonIn, simX):
             f.write(f"{dt_str:<16}")
             for j in range(n_z):
                 f.write(f"{LWC[i,j]:>18.12f}")
-            f.write("\n")
-
-            
-            
-    # Open file
-    with open(f"Qvap2dTS_{simX}.txt", "w") as f:
-        # Header
-        f.write(f"{'DateTime':<16}")
-        for i_z in range(n_z):
-            f.write(f"{'Qvap_z'+str(i_z+1):>18}")
-        f.write("\n")
-
-        # Heights row
-        f.write(f"{'Height(km)':<16}")
-        for z in z_km[:n_z]:
-            f.write(f"{z:>18.3f}")
-        f.write("\n")
-
-        # Data rows
-        for i in range(n_times):
-            dt = times[i].astype("M8[ms]").astype(datetime)
-            dt_str = dt.strftime("%d/%m/%y_%H:%M")
-            f.write(f"{dt_str:<16}")
-            for j in range(n_z):
-                f.write(f"{Qv[i,j]:>18.12f}")
             f.write("\n")
 
             
@@ -575,7 +550,7 @@ if __name__ == "__main__":
 
     # --------- Variables to fix  ----------------------------
     #
-    simX = 'sim1'     #name of the simulation
+    simX = 'sim2'     #name of the simulation
     merge = True      #merge files?
     bs = True        #add blowing snow? (CRYOWRF only)
     #
@@ -644,7 +619,7 @@ if __name__ == "__main__":
     Qisg = calculate_Qisg(wrf_file) #ice,snow,groupel
 
     # Calculate QVAPOR from function
-    Qvap = calculate_Qvap(wrf_file) 
+    #Qvap = calculate_Qvap(wrf_file) 
 
     # Calculate Qrc from function
     Qrc = calculate_Qrc(wrf_file) #rain,cloud
@@ -705,19 +680,13 @@ if __name__ == "__main__":
                      targetLon,
                      interp=False)
 
-    # (time, bottom_top) array
-    Qvap2D = interp4D(wrf_file,
-                      Qvap,
-                      targetLat,
-                      targetLon,
-                      interp=False)
     
 
     # print to file: This prints Nisg, IWC, LWD at bottom level 
     printTSfrom2D(wrf_file, Nisg2D, IWC2D, LWC2D, simX)  
 
     # print to file: This prints 2d timeseries
-    print2dTSfrom2D(wrf_file, Nisg2D, IWC2D, LWC2D, Qvap2D, 
+    print2dTSfrom2D(wrf_file, Nisg2D, IWC2D, LWC2D,  
                     targetLat, targetLon, simX)  
 
 

@@ -24,7 +24,7 @@ class MeteoData:
 
 
 meteos = {} #array
-numSim = 1 #number of simulations to store
+numSim = 2 #number of simulations to store
 
 
 
@@ -49,7 +49,7 @@ df = df.sort_values(by='reference_timestamp')
 ###
 plotTimeseries=True
 if plotTimeseries == True:
-    data = np.loadtxt("./plot/jfj.d02.TS_sim1", skiprows=1)
+    data = np.loadtxt("./plot/jfj.d02.TS_sim2", skiprows=1)
 
     # start time
     t0 = datetime(2014, 1, 26, 0, 0, 0)
@@ -57,9 +57,13 @@ if plotTimeseries == True:
     # Extract columns (Python is 0-based!)
     time_h = data[:, 1]   # column 2
     y = data[:, 5]-273.15   # column 6: 2m Temperature
-                            # column 8: 10m U
-                            # column 10: surface pressure
     time_dt = [t0 + timedelta(hours=h) for h in time_h]
+
+
+    data2 = np.loadtxt("./plot/jfj.d03.TS_sim1", skiprows=1)
+    time_h2 = data2[:, 1]   # column 2
+    y2 = data2[:, 5]-273.15   # column 6: 2m Temperature
+    time_dt2 = [t0 + timedelta(hours=h) for h in time_h2]
 
                  
 
@@ -117,9 +121,10 @@ pltWS.scatter(df['reference_timestamp'], df['fkl010z0'],
             label='measured', 
             facecolors='none', 
             edgecolors='gray')
-pltWS.plot(meteos[1].times, meteos[1].WS10,
-           color='black', linestyle='-', marker='',label='sim1')
-
+# pltWS.plot(meteos[1].times, meteos[1].WS10,
+#            color='gray', linestyle='-', marker='',label='sim1')
+pltWS.plot(meteos[2].times, meteos[2].WS10,
+           color='black', linestyle='-', marker='',label='sim2')
 pltWS.set_ylabel(r'WS10m [$\mathregular{m s^{-1}}$]')
 #pltWS.legend()
 pltWS.grid(True)
@@ -131,7 +136,9 @@ pltWD.scatter(df['reference_timestamp'], df['dkl010z0'],
             label='measured', 
             facecolors='none', 
             edgecolors='gray')
-pltWD.plot(meteos[1].times, meteos[1].WD10,
+# pltWD.plot(meteos[1].times, meteos[1].WD10,
+#            color='gray', linestyle='-', marker='')
+pltWD.plot(meteos[2].times, meteos[2].WD10,
            color='black', linestyle='-', marker='')
 
 pltWD.set_ylabel('WD10m [°]')
@@ -145,8 +152,11 @@ pltRH.scatter(df['reference_timestamp'], df['ure200s0'],
             label='measured', 
             facecolors='none', 
             edgecolors='gray')
-pltRH.plot(meteos[1].times, meteos[1].RH,
+# pltRH.plot(meteos[1].times, meteos[1].RH,
+#            color='gray', linestyle='-', marker='')
+pltRH.plot(meteos[2].times, meteos[2].RH,
            color='black', linestyle='-', marker='')
+
 pltRH.set_ylabel(r'[$\mathregular{RH2m_{w}}$] [%]')
 pltRH.grid(True)
 pltRH.xaxis.set_major_formatter(mdates.DateFormatter('%d/%m_%H'))
@@ -159,12 +169,18 @@ pltT2m.scatter(df['reference_timestamp'], df['tre200s0'],
             label='measured', 
             facecolors='none', 
             edgecolors='gray')
-pltT2m.plot(meteos[1].times, meteos[1].T2,
+# pltT2m.plot(meteos[1].times, meteos[1].T2,
+#             color='gray', linestyle='-', marker='',
+#             label='sim1')
+pltT2m.plot(meteos[2].times, meteos[2].T2,
             color='black', linestyle='-', marker='',
-            label='sim1')
-pltT2m.plot(time_dt, y,
+            label='sim2')
+# pltT2m.plot(time_dt, y,
+#             color='orange', linestyle=':', marker='',
+#             label='TS_sim1')
+pltT2m.plot(time_dt2, y2,
             color='red', linestyle=':', marker='',
-            label='TS_sim1')
+            label='TS_sim2')
 #pltT2m.plot(time_dt, y, linestyle='--',
 #             color='green',label='sim6_TS') #timeseries data
 pltT2m.set_ylabel('T2m [°C]')

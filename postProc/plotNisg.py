@@ -23,7 +23,7 @@ class PartData:
 
 parts = {} #array
 
-numSim = 1 #number of simulations to store
+numSim = 2 #number of simulations to store
 
 
 ###
@@ -117,8 +117,10 @@ pltNisg.scatter(dfICNC['Datetime(dd/mm/yyyy h:mm)'], dfICNC['ICNC(L-1)'],
                 label='measured', 
                 facecolors='none', 
                 edgecolors='gray')
-pltNisg.plot(parts[1].time, parts[1].valNisg,
-             color='black', linestyle='-', marker=mkr)#CTRL
+# pltNisg.plot(parts[1].time, parts[1].valNisg,
+#              color='gray', linestyle='-', marker=mkr)#sim1
+pltNisg.plot(parts[2].time, parts[2].valNisg,
+             color='black', linestyle='-', marker=mkr)#sim2
 
 
 pltNisg.set_xlabel('Datetime')
@@ -138,9 +140,12 @@ pltIWC.scatter(dfIWC['Datetime(dd/mm/yyyy h:mm)'], dfIWC['IWC(gm-3)'],
                label=r'IWC [$\mathregular{gm^{-3}}$]',
                facecolors='none', 
                edgecolors='gray')
-pltIWC.plot(parts[1].time, parts[1].valIWC,
+# pltIWC.plot(parts[1].time, parts[1].valIWC,
+#             color='gray', linestyle='-',
+#             marker=mkr)#sim1
+pltIWC.plot(parts[2].time, parts[2].valIWC,
             color='black', linestyle='-',
-            marker=mkr)#CTRL
+            marker=mkr)#sim2
 
 
 pltIWC.set_ylabel(r'IWC [$\mathregular{gm^{-3}}$]')
@@ -160,9 +165,12 @@ pltLWC.scatter(dfLWC['Datetime(dd/mm/yyyy h:mm)'], dfLWC['LWC(gm-3)'],
                label=r'measured',
                facecolors='none', 
                edgecolors='gray')
-pltLWC.plot(parts[1].time, parts[1].valLWC,
+# pltLWC.plot(parts[1].time, parts[1].valLWC,
+#             color='gray', linestyle='-', marker=mkr,
+#             label='sim1')#sim1
+pltLWC.plot(parts[2].time, parts[2].valLWC,
             color='black', linestyle='-', marker=mkr,
-            label='sim1')#sim1
+            label='sim2')#sim2
 
 
 pltLWC.set_xlabel('Date (dd/mm_hh)')
