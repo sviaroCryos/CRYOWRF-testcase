@@ -1,4 +1,8 @@
+#simulations for comparison
 sim1 -> large domain: paper
-	CRYOERF	commit 1167673fca8a832dda99c1e23c3f5cb080009416
+	CRYOWRF	commit 1167673fca8a832dda99c1e23c3f5cb080009416
 sim2 -> small domain: testcase
 	CRYOWRF commit b4d1fb7223cdf8743affe380befbb68af45d64ee
+
+#simulation to compare
+sim3 -> add here results to compare with sim1 and sim2
