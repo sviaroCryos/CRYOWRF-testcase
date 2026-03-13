@@ -9,7 +9,7 @@ DEST1=/home/viaro/cryos/softwares/cryowrf/CRYOWRF-WRF/test/em_real/input
 DEST2=/home/viaro/cryos/softwares/cryowrf/CRYOWRF-WRF/test/em_real
 DEST3=/home/viaro/cryos/softwares/cryowrf/CRYOWRF-WRF/phys
 DEST4=/home/viaro/cryos/softwares/cryowrf/CRYOWRF-WRF/test/em_real/wpsout
-
+DIR1=/home/viaro/cryos/softwares/cryowrf/CRYOWRF-WRF/test/em_real/outhist
 
 #copy DEST1
 cp COSMO.smet $DEST1
@@ -39,7 +39,8 @@ else
 fi
 cp metFiles/met_em* $DEST4
 
-
+#create directories
+mkdir "$DIR1"
 
 
 

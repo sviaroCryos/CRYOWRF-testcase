@@ -334,7 +334,7 @@ if __name__ == "__main__":
 
     # --------- Variables to fix  ----------------------------
     #
-    simX = 'sim2'     #name of the simulation
+    simX = 'sim3'     #name of the simulation
     merge = True      #merge files?
     #
     #--------------------------------------------------------
