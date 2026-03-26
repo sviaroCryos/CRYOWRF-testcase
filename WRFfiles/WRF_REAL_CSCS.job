@@ -1,0 +1,43 @@
+#!/bin/bash -l
+#
+#SBATCH --output=WRF_REAL.out
+#SBATCH --error=WRF_REAL.err
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --job-name="test_REAL"
+#SBATCH --cpus-per-task=1
+#SBATCH --constraint=mc
+#SBATCH --time=00:30:00
+#SBATCH --partition=debug
+#SBATCH --account=s1329
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=samuele.viaro@epfl.ch
+#SBATCH --uenv=prgenv-gnu/24.11:v2
+#SBATCH --view=default
+
+
+# to submit the job: sbatch WRF_REAL.job
+
+ulimit -s unlimited
+ulimit -c unlimited
+
+export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
+#export OMP_NUM_THREADS=1
+#export OMP_STACK_SIZE="8g"
+
+# set LD_LIBRARY_PATH to find the dependencies installed in step 1
+export WRFDEPS=$STORE/Shared/Dependencies/hicar
+export LD_LIBRARY_PATH=$WRFDEPS/view/lib:$WRFDEPS/view/lib64:$LD_LIBRARY_PATH
+
+
+# set other environment variables
+export WRF_EM_CORE=1
+export WRF_NMM_CORE=0
+export WRF_DA_CORE=0
+export WRF_CHEM=0
+export WRF_KPP=0
+export NETCDF4=1
+export WRFIO_NCD_LARGE_FILE_SUPPORT=1
+
+# then run wrf.exe
+srun --hint=nomultithread ./real.exe
